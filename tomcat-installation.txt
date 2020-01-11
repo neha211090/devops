@@ -1,0 +1,70 @@
+https://www.youtube.com/watch?v=m21nFreFw8A&t=169s
+
+https://github.com/ValaxyTech/DevOpsDemos/blob/master/Tomcat/tomcat_installation.MD
+
+
+Launch an EC2 instance
+
+step1 sudo su -
+step2 yum install java-1.8*
+step3 yum install wget -y
+step4 cd /opt
+step5 wget //mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+step6 tar -zvxf apache-tomcat-8.5.50.tar.gz
+step7  mv apache-tomcat-8.5.50 tomcat
+step8 cd tomcat/bin
+step9 chmod +x startup.sh shutdown.sh
+step10 echo $PATH
+step11 ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
+step12 ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
+step13 tomcatup
+
+now we can check if tomcat is installed or not by hitting below command
+
+ipaddress:8080
+
+http://13.52.216.167:8080/
+
+As manager app is only accessible to local machine and we are not using local machine as we have installed the tomcat on Linux machine so we need to follow below steps to access the same
+
+find / -name context.xml
+
+vi /opt/tomcat/webapps/host-manager/META-INF/context.xml
+
+comment out the below section as below
+
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />  -->
+
+==================================
+
+After doing above step , take a restart
+
+tomcatdown
+tomcatup
+
+Now try to click on manager app , it should work now and prompt for credentials 
+
+but we dont have anyuser right now , so to create user with roles , follow below steps
+
+Update users information in the tomcat-users.xml file goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+ cd /opt/tomcat/conf
+ vi tomcat-users.xml
+
+add below mentioned all users just above the commented section of tomcat-users and save the file
+
+
+        <role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<role rolename="manager-jmx"/>
+	<role rolename="manager-status"/>
+	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+	<user username="deployer" password="deployer" roles="manager-script"/>
+	<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+
+After adding above users , take a restart 
+tomcatdown
+tomcatup
+
+now try to login in manager app by user/password  tomcat/s3cret , now a new manager page should be opened.

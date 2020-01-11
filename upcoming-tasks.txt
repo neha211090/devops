@@ -1,0 +1,16 @@
+CI/CD Pipeline via Jenkins & Ansible
+
+Step1:-
+Install ansible on one linux install i.e. known as controlled server.
+
+Step2:-
+Install below softwares on managed nodes.
+
+WebServer:- Apache , PHP7 , CodeJunit
+DBServer:- Maria DB
+J2EE
+
+
+Step3:-
+Create CI/CD pipeline via Jenkins & ansible
+

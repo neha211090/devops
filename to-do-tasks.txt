@@ -1,0 +1,21 @@
+Step 1:- 
+VT enabled on local PC
+
+Step2 :-
+Install Oracle VB 
+
+Step3:-
+Install Vagrant
+
+Step4:-
+Vagrant up
+
+Step5:-
+Install Anisble (Refer ansible installation text file)
+
+Step6:-
+Hands-on Ansible Module/Playbook exercise
+
+Step7:-
+Prepare Interview questions
+
